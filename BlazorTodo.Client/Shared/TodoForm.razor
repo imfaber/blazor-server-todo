@@ -1,0 +1,18 @@
+﻿@inject BlazorTodo.Client.Services.AppState State
+
+<input type="text" @bind="NewTodo" @onkeyup="AddTodo" placeholder="What needs to be done?" class="new-todo" />
+
+@code {
+    private string NewTodo { get; set; }
+
+    protected override void OnInitialized() {
+        State.OnChange += StateHasChanged;
+    }
+
+    public async Task AddTodo(KeyboardEventArgs e) {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(NewTodo)) {
+            await State.AddTodo(NewTodo);
+            NewTodo = "";
+        }
+    }
+}

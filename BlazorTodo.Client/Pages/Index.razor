@@ -1,0 +1,12 @@
+﻿@using BlazorTodo.Shared
+@inject BlazorTodo.Client.Services.AppState state
+@page "/"
+@page "/all"
+
+<TodoList Filter="FilterCriteria.All" />
+
+@code {
+    protected override void OnParametersSet() {
+        state.SetPageTitle("All");
+    }
+}

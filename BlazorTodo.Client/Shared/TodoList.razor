@@ -1,0 +1,28 @@
+﻿@inject BlazorTodo.Client.Services.AppState State
+
+<ul class="list-group">
+    @foreach (var item in Todos) {
+        <li class="list-group-item d-flex align-items-center @(item.IsDone ? "list-group-item-success" : "")">
+            <input type="checkbox" checked="@item.IsDone" @onchange="@(() => State.ToggleTodo(item))" />
+            <span class="flex-grow-1 ml-4 mr-2">@item.Title</span>
+            <button type="button" class="close" @onclick="@(() => State.RemoveTodo(item))">
+                <span aria-hidden="true">×</span>
+            </button>
+        </li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public FilterCriteria Filter { get; set; }
+
+    public IEnumerable<TodoItem> Todos;
+
+    protected override void OnInitialized() {
+        State.OnChange += StateHasChanged;
+    }
+
+    protected override void OnParametersSet() {
+        Todos = State.GetTodoList(Filter);
+    }
+}

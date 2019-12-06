@@ -1,0 +1,11 @@
+﻿@using BlazorTodo.Shared
+@inject BlazorTodo.Client.Services.AppState state
+@page "/active"
+
+<TodoList Filter="FilterCriteria.Active" />
+
+@code {
+    protected override void OnParametersSet() {
+        state.SetPageTitle("Active");
+    }
+}

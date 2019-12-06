@@ -1,0 +1,11 @@
+﻿@using BlazorTodo.Shared
+@inject BlazorTodo.Client.Services.AppState state
+@page "/completed"
+
+<TodoList Filter="FilterCriteria.Completed" />
+
+@code {
+    protected override void OnParametersSet() {
+        state.SetPageTitle("Completed");
+    }
+}
